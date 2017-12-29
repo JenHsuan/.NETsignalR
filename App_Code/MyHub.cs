@@ -12,9 +12,9 @@ using System.Web;
 [HubName("myhub")]
 public class MyHub:Hub
 {
-    public void serverMethod(string msg)
+    public void serverMethod(string name, string msg)
     {
-        Clients.All.clientMethod(msg + " good morning");
+        Clients.All.clientMethod(name , msg);
         //return msg + " good morning";
     }
     public MyHub()

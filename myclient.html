@@ -8,18 +8,40 @@
 				<script src="../signalr/hubs" type="text/javascript"></script>
 </head>
 <body>
-<script>
-	$(document).ready(function () {
-		var obj = $.connection.myhub;
-		obj.client.clientMethod = function (data) {
-			alert(data);
-		}
-
-		$.connection.hub.start().done(function () {
-			obj.server.serverMethod("Hi");
-			});
-	
-});
-	</script>
+	<table>
+		<tr>
+			<td>Welcome Mr/Ms</td>
+			<td><div id = "name"/></td>
+ </tr>
+		
+		<tr>
+			<td>
+				Enter your message:
+			</td>
+			<td>
+				<textarea rows="5" id="msg"></textarea>
+				<input id = "send" type = "button" value="Send">
+			</td>
+  </tr>
+		<tr>
+			  <td><ul id = "msgList"></ul></td>
+		</tr>
+</table>
+			<script type="text/javascript">
+				$(document).ready(function () {
+					var n = prompt("Enter your name", "");
+					$("#name").html(n);
+					var obj = $.connection.myhub;
+					obj.client.clientMethod = function (name, msg) {
+						$("#msgList").append("<li>" + name + ":" + msg + "</li>")
+					}
+					$.connection.hub.start().done(function () {
+						$("#send").click(function () {
+							obj.server.serverMethod($("#name").html(n), $("msg").val());
+							console.log("123")
+						});
+					});
+				});
+			</script>
 </body>
 </html>

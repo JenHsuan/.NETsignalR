@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+				<script src="Scripts/jquery-1.6.4.js"></script>
+			 <script src="Scripts/jquery.signalR-2.2.2.js"></script>
+				<script src="../signalr/hubs" type="text/javascript"></script>
+</head>
+<body>
+<script>
+	$(document).ready(function () {
+		var obj = $.connection.myhub;
+		obj.client.clientMethod = function (data) {
+			alert(data);
+		}
+
+		$.connection.hub.start().done(function () {
+			obj.server.serverMethod("Hi");
+			});
+	
+});
+	</script>
+</body>
+</html>

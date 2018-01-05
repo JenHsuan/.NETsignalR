@@ -13,7 +13,9 @@
 		$(document).ready(function () {
 			var obj = $.connection.myhub;
 			$.connection.hub.start().done(function () {
-				obj.server.servermethod();
+				obj.server.servermethod("hi").done(function (data) {
+					alert(data);
+				});
 			}).fail(function () {
 				alert("no connected")
 			});

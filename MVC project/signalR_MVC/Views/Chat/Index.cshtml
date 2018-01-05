@@ -10,9 +10,10 @@
 	<script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
 	<script src="~/signalr/hubs"></script>
 	<script>
-		$(function () {
+		$(document).ready(function () {
+			var obj = $.connection.myhub;
 			$.connection.hub.start().done(function () {
-				alert("connected")
+				obj.server.servermethod();
 			}).fail(function () {
 				alert("no connected")
 			});

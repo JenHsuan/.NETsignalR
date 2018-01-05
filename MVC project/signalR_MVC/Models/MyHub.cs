@@ -10,5 +10,9 @@ namespace signalR_MVC.Models
     [HubName("myhub")]
     public class MyHub: Hub
     {
+        public string servermethod()
+        {
+            return "server";
+        }
     }
 }

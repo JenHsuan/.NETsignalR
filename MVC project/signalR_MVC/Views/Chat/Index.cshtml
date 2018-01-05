@@ -1,29 +1,61 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Chat room";
 }
 
-<h2>Index</h2>
-
+<h2>Chat room</h2>
+<table>
+	<tr>
+		<td>
+			Welcome Mr/Ms
+		</td>
+		<td>
+			<div id = "name"/>
+		</td>
+</tr>
+	<tr>
+		<td>
+			Enter your message:
+		</td>
+		<td>
+			<textarea rows="5" id="msg"></textarea>
+			</br>
+			<input id = "send" type="button" value="send"/>
+		</td>
+</tr>
+<tr>
+	<td>
+		<ul id="msgList"></ul>
+</td>
+</tr>
+</table>
 @section scripts
 {
-	<script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
-	<script src="~/signalr/hubs"></script>
-	<script>
-		$(document).ready(function () {
-			var obj = $.connection.myhub;
+			<script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+			<script src="~/signalr/hubs"></script>
+			<script>
+				$(document).ready(function () {
 
-			obj.client.clientmethod = function (data){
-				alert(data);
-			}
+					var n = prompt("Enter your name", "");
+					$("#name").html(n);
 
-			$.connection.hub.start().done(function () {
-				//call server method
-				obj.server.servermethod("hi");
-			}).fail(function () {
-				alert("no connected")
-			});
-		});
-	</script>
-}
+					//create connection to the hub
+					$.connection.hub.start();
+
+					var obj = $.connection.myhub
+
+					obj.client.clientmethod = function (name, msg) {
+						$("#msgList").append("<li>" + name + ":" + msg + "</li>");
+					}
+
+					$.connection.hub.start().done(function () {
+						$("#send").click(function () {
+							obj.server.servermethod($("#name").html(), $("#msg").val());
+							console.log($("#msg").val());
+					 });
+					});
+
+				});
+			</script>
+		}
 

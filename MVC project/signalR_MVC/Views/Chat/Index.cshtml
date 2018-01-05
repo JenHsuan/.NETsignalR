@@ -6,6 +6,11 @@
 <h2>Chat room</h2>
 <table>
 	<tr>
+		<td colspan="2">
+			<ul id="logList"></ul>
+		</td>
+		</tr>
+<tr>
 		<td>
 			Welcome Mr/Ms
 		</td>
@@ -42,13 +47,19 @@
 					//create connection to the hub
 					$.connection.hub.start();
 
-					var obj = $.connection.myhub
+				 var obj = $.connection.myhub
 					obj.client.log = function (data) {
-						alert(data);
+						$("#logList").append("<li>----------------New connection------------</li>");
+						$("#logList").append("<li>connection id:" + data.conId + "</li>");
+						$("#logList").append("<li>connection status:" + data.conId + "</li>");
+						$("#logList").append("<li>connection transport:" + data.transport + "</li>");
+						$("#logList").append("<li>connection host:" + data.host + "</li>");
+						$("#logList").append("<li>connection port:" + data.port + "</li>");
+						$("#logList").append("<li>connection user name:" + data.uname + "</li>");
 					}
 
-					obj.client.clientmethod = function (name, msg) {
-						$("#msgList").append("<li>" + name + ":" + msg + "</li>");
+					obj.client.clientmethod = function (name, conid, msg) {
+						$("#msgList").append("<li>" + name + "(" + conid + ")" + + ":" + msg + "</li>");
 					}
 
 					$.connection.hub.start().done(function () {

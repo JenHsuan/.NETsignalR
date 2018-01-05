@@ -43,6 +43,9 @@
 					$.connection.hub.start();
 
 					var obj = $.connection.myhub
+					obj.client.log = function (data) {
+						alert(data);
+					}
 
 					obj.client.clientmethod = function (name, msg) {
 						$("#msgList").append("<li>" + name + ":" + msg + "</li>");

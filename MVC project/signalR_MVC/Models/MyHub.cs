@@ -10,9 +10,10 @@ namespace signalR_MVC.Models
     [HubName("myhub")]
     public class MyHub: Hub
     {
-        public string servermethod(string msg)
+        public void servermethod(string msg)
         {
-            return msg + " server";
+            // call the clients connected to the hub
+            Clients.All.clientmethod(msg + "server.");
         }
     }
 }

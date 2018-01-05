@@ -12,10 +12,14 @@
 	<script>
 		$(document).ready(function () {
 			var obj = $.connection.myhub;
+
+			obj.client.clientmethod = function (data){
+				alert(data);
+			}
+
 			$.connection.hub.start().done(function () {
-				obj.server.servermethod("hi").done(function (data) {
-					alert(data);
-				});
+				//call server method
+				obj.server.servermethod("hi");
 			}).fail(function () {
 				alert("no connected")
 			});

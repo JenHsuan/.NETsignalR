@@ -23,9 +23,17 @@ namespace signalR_MVC.Models
     {
         private static List<string> ConnectionIds;
 
-        public static MyHub()
+        public MyHub()
         {
             ConnectionIds = new List<string>();
+        }
+
+        public void join(string group)
+        {
+            //join group
+            Groups.Add(Context.ConnectionId, group);
+            //remove group
+            //Groups.Remove(Context.ConnectionId, group);
         }
 
         public override Task OnConnected()

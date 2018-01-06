@@ -171,7 +171,6 @@ D:\2.Practice\.NETsignalR\MVC project\signalR_MVC\bin\Microsoft.AI.DependencyCol
 D:\2.Practice\.NETsignalR\MVC project\signalR_MVC\bin\Microsoft.AI.ServerTelemetryChannel.xml
 D:\2.Practice\.NETsignalR\MVC project\signalR_MVC\bin\Microsoft.AI.WindowsServer.xml
 D:\2.Practice\.NETsignalR\MVC project\signalR_MVC\bin\Microsoft.AI.Web.xml
-D:\2.Practice\.NETsignalR\MVC project\signalR_MVC\obj\Debug\signalR_MVC.csprojResolveAssemblyReference.cache
 D:\2.Practice\.NETsignalR\MVC project\signalR_MVC\obj\Debug\signalR_MVC.dll
 D:\2.Practice\.NETsignalR\MVC project\signalR_MVC\obj\Debug\signalR_MVC.pdb
 D:\2.Practice\.NETsignalR\MVC project\signalR_MVC\bin\roslyn\csc.exe

@@ -47,8 +47,11 @@
 					//create connection to the hub
 					$.connection.hub.start();
 
-				 var obj = $.connection.myhub
-					obj.client.log = function (data) {
+					var g = prompt("Enter your group name", "");
+
+					var obj = $.connection.myhub;
+
+				    obj.client.log = function (data) {
 						$("#logList").append("<li>----------------New connection------------</li>");
 						$("#logList").append("<li>connection id:" + data.conId + "</li>");
 						$("#logList").append("<li>connection status:" + data.conId + "</li>");
@@ -63,6 +66,7 @@
 					}
 
 					$.connection.hub.start().done(function () {
+					    obj.server.join(g);
 						$("#send").click(function () {
 							obj.server.servermethod($("#name").html(), $("#msg").val());
 							console.log($("#msg").val());

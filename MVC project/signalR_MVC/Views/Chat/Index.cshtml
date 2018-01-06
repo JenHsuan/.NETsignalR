@@ -59,7 +59,7 @@
 					}
 
 					obj.client.clientmethod = function (name, conid, msg) {
-						$("#msgList").append("<li>" + name + "(" + conid + ")" + + ":" + msg + "</li>");
+						$("#msgList").append("<li>" + name + "(" + conid + "): " + msg + "</li>");
 					}
 
 					$.connection.hub.start().done(function () {

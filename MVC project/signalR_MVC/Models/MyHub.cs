@@ -21,8 +21,17 @@ namespace signalR_MVC.Models
     [HubName("myhub")]
     public class MyHub: Hub
     {
+        private static List<string> ConnectionIds;
+
+        public static MyHub()
+        {
+            ConnectionIds = new List<string>();
+        }
+
         public override Task OnConnected()
         {
+            ConnectionIds.Add(Context.ConnectionId);
+
             Info i = new Info();
             i.conId = Context.ConnectionId.ToString();
             i.conStatus = Context.Headers["Connection"].ToString();
@@ -35,6 +44,7 @@ namespace signalR_MVC.Models
         }
         public override Task OnDisconnected(bool stopCalled)
         {
+            ConnectionIds.Remove(Context.ConnectionId);
             return Clients.All.log("Disconnected" + DateTime.Now.ToString());
         }
 
@@ -43,6 +53,10 @@ namespace signalR_MVC.Models
             string ConId = Context.ConnectionId.ToString();
             // call the clients connected to the hub
             Clients.All.clientmethod(name, ConId, msg);
+            //Only send message to second one
+            //Clients.Client(ConnectionIds[1]).clientmethod(name, ConId, msg);
+            //Broadcast message except second one
+            //Clients.AllExcept(ConnectionIds[1]).clientmethod(name, ConId, msg);
         }
     }
 }

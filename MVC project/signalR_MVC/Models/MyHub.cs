@@ -31,9 +31,14 @@ namespace signalR_MVC.Models
         public void join(string group)
         {
             //join group
-            Groups.Add(Context.ConnectionId, group);
-            //remove group
-            //Groups.Remove(Context.ConnectionId, group);
+            if (group != null)
+            {
+                Groups.Add(Context.ConnectionId, group);
+            }
+            else
+            {
+                Groups.Add(Context.ConnectionId, "default");
+            }
         }
 
         public override Task OnConnected()
@@ -56,15 +61,11 @@ namespace signalR_MVC.Models
             return Clients.All.log("Disconnected" + DateTime.Now.ToString());
         }
 
-        public void servermethod(string name, string msg)
+        public void servermethod(string name, string msg, string group)
         {
             string ConId = Context.ConnectionId.ToString();
             // call the clients connected to the hub
-            Clients.All.clientmethod(name, ConId, msg);
-            //Only send message to second one
-            //Clients.Client(ConnectionIds[1]).clientmethod(name, ConId, msg);
-            //Broadcast message except second one
-            //Clients.AllExcept(ConnectionIds[1]).clientmethod(name, ConId, msg);
+            Clients.Group(group).clientmethod(name, ConId, msg);
         }
     }
 }

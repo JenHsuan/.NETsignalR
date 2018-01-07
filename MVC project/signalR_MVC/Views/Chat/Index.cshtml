@@ -39,15 +39,30 @@
 			<script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
 			<script src="~/signalr/hubs"></script>
 			<script>
+                //Get query string
+                function queryString(Key)
+                {
+                    var url = window.location.href;
+                    KeysValues = url.split(/[\?&]+/);
+                    for(i = 0; i < KeysValues.length; i++)
+                    {
+                        KeysValue = KeysValues[i].split("=");
+                        if (KeysValue[0] == Key)
+                        {
+                            return KeysValue[1];
+                        }
+                    }
+                }
+
 				$(document).ready(function () {
 
-					var n = prompt("Enter your name", "");
-					$("#name").html(n);
+				    //Get name from query string
+				    var n = queryString("n");
 
-					//create connection to the hub
-					$.connection.hub.start();
+				    $("#name").html(n);
 
-					var g = prompt("Enter your group name", "");
+				    //Get group from query string
+				    var g = queryString("g");
 
 					var obj = $.connection.myhub;
 
@@ -68,7 +83,7 @@
 					$.connection.hub.start().done(function () {
 					    obj.server.join(g);
 						$("#send").click(function () {
-							obj.server.servermethod($("#name").html(), $("#msg").val());
+							obj.server.servermethod($("#name").html(), $("#msg").val(), g);
 							console.log($("#msg").val());
 					 });
 					});

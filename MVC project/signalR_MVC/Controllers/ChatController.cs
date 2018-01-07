@@ -13,5 +13,10 @@ namespace signalR_MVC.Controllers
         {
             return View();
         }
+        // GET: Chat/Welcome
+        public ActionResult Welcome()
+        {
+            return View("Welcome");
+        }
     }
 }
